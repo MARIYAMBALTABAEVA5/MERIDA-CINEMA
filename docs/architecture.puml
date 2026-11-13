@@ -1,0 +1,52 @@
+@startuml
+skinparam classAttributeIconSize 0
+package "Factory - Student 1" {
+interface Ticket { +getName(): String\n+getBasePrice(): int }
+class StandardTicket
+class VipTicket
+class TicketFactory { +create(type): Ticket }
+Ticket <|.. StandardTicket
+Ticket <|.. VipTicket
+TicketFactory ..> Ticket
+}
+package "Builder - Student 1" {
+class BookingBuilder { +customer(name,email)\n+showtime(showtime)\n+seats(seats)\n+build(): Booking }
+class Booking
+BookingBuilder ..> Booking
+}
+package "Decorator - Student 3" {
+abstract class TicketDecorator
+class PopcornDecorator
+class DrinkDecorator
+Ticket <|.. TicketDecorator
+TicketDecorator o-- Ticket
+TicketDecorator <|-- PopcornDecorator
+TicketDecorator <|-- DrinkDecorator
+}
+package "Strategy - Student 2" {
+interface PricingStrategy { +calculate(subtotal): int }
+class RegularPricing
+class StudentPricing
+class MemberPricing
+PricingStrategy <|.. RegularPricing
+PricingStrategy <|.. StudentPricing
+PricingStrategy <|.. MemberPricing
+}
+package "Observer - Student 2" {
+interface BookingObserver { +onBookingChanged(booking) }
+class BookingPublisher { +subscribe(observer)\n+notifyAllObservers(booking) }
+class CustomerNotifier
+class AdminNotifier
+BookingObserver <|.. CustomerNotifier
+BookingObserver <|.. AdminNotifier
+BookingPublisher o-- BookingObserver
+}
+package "Facade - Student 3" {
+class CinemaBookingFacade { +quote(...): int\n+reserve(...): Booking\n+isOccupied(showtime,seat): boolean }
+CinemaBookingFacade ..> TicketFactory
+CinemaBookingFacade ..> BookingBuilder
+CinemaBookingFacade ..> PricingStrategy
+CinemaBookingFacade ..> TicketDecorator
+CinemaBookingFacade --> BookingPublisher
+}
+@enduml
