@@ -1,74 +1,115 @@
-# Baby Pink Cinema — Ticket Reservation System
+# MERIDA CINEMA — Ticket Reservation System
 
-A polished Java Swing desktop application that demonstrates **six working GoF design patterns** in one cohesive cinema-booking workflow. The project is designed for a 3-person team, with two patterns per student.
+A Java Swing desktop application demonstrating six GoF design patterns in one integrated cinema ticket reservation system.
 
-## Main application features
+The project was developed by a team of three students, with two design patterns implemented by each team member.
 
-- Five selectable movies, each with its own built-in poster-style cover.
-- Day and showtime selection.
-- Interactive 5 × 8 cinema seating map with available, selected, and booked states.
+## Main Features
+
+- Five selectable movies with poster images.
+- Movie, day, and showtime selection.
+- Interactive cinema seating map (5 × 8).
 - Standard and VIP ticket types.
-- Optional popcorn and soft-drink extras.
-- Regular, Student (-10%), and Member (-15%) pricing strategies.
+- Optional popcorn and soft drink extras.
+- Different pricing strategies:
+  - Regular — no discount.
+  - Student — 10% discount.
+  - Pensioner — 15% discount.
+  - Disability — 20% discount.
 - Customer name and email validation.
-- Live order summary and total price.
+- Automatic order summary and total price calculation.
 - Booking confirmation with a unique reference number.
-- Double-booking prevention for the same movie/showtime/seat.
-- Observer notifications printed to the console.
-- Responsive centered layout with vertical scrolling only; selecting many/all seats does not create horizontal page scrolling.
-- All movie cover artwork is drawn inside the Java application, so the project works offline without external image files.
+- Prevention of double booking for the same movie, showtime, and seat.
+- Customer and admin notifications through the Observer pattern.
 
-## Six design patterns
+## Six Design Patterns
 
-| Team member | Pattern | Main files | How it is demonstrated |
-|---|---|---|---|
-| Student 1 | Factory | `factory/TicketFactory.java`, `StandardTicket.java`, `VipTicket.java` | Creates Standard or VIP ticket objects without exposing construction logic to the UI. |
-| Student 1 | Builder | `builder/BookingBuilder.java` | Builds a complete booking step-by-step from customer, showtime, seats, ticket, extras, discount, and total. |
-| Student 2 | Strategy | `strategy/*Pricing.java` | Changes the pricing algorithm at runtime: Regular, Student, or Member. |
-| Student 2 | Decorator | `decorator/*Decorator.java` | Adds popcorn and drink extras to a ticket dynamically without modifying the ticket classes. |
-| Student 3 | Observer | `observer/*.java` | Notifies customer/admin observers after booking events; notifications are simulated in the console. |
-| Student 3 | Facade | `facade/CinemaBookingFacade.java` | Provides one simplified booking API that coordinates Factory, Decorator, Strategy, Builder, and Observer. |
+| Team Member | Design Pattern | Main Classes |
+|---|---|---|
+| Mariyam | Factory | TicketFactory, StandardTicket, VipTicket |
+| Mariyam | Builder | BookingBuilder |
+| Dayana | Strategy | PricingStrategy, RegularPricing, StudentPricing, PensionerPricing, DisabilityPricing |
+| Dayana | Observer | BookingObserver, BookingPublisher, CustomerNotifier, AdminNotifier |
+| Mehrinsa | Decorator | TicketDecorator, PopcornDecorator, DrinkDecorator |
+| Mehrinsa | Facade | CinemaBookingFacade |
 
-## Run on Windows
+### Pattern Integration
 
-1. Install **JDK 17 or newer**. Check both `java -version` and `javac -version`.
-2. Extract the ZIP.
-3. Double-click `run.bat`, or open Command Prompt in the project folder and run `run.bat`.
+- **Factory:** Creates Standard and VIP ticket objects.
+- **Builder:** Constructs booking objects step by step.
+- **Strategy:** Applies different pricing algorithms.
+- **Observer:** Sends booking notifications to customers and administrators.
+- **Decorator:** Adds optional popcorn and drink extras to tickets.
+- **Facade:** Coordinates the booking process by connecting the different components.
 
-## Run with IntelliJ IDEA / VS Code
+## Technologies
 
-Open the project folder, then run `src/cinema/ui/CinemaApp.java`.
+- Java
+- Java Swing
+- Object-Oriented Programming
+- Git and GitHub
+- IntelliJ IDEA
 
-## Run on macOS/Linux
+## Project Structure
 
-With JDK 17+ installed:
-
-```bash
-chmod +x run.sh
-./run.sh
+```text
+MERIDA-CINEMA/
+├── docs/
+│   └── architecture.puml
+├── resources/
+│   └── posters/
+├── src/
+│   └── cinema/
+│       ├── builder/
+│       ├── decorator/
+│       ├── facade/
+│       ├── factory/
+│       ├── model/
+│       ├── observer/
+│       ├── strategy/
+│       └── ui/
+├── .gitignore
+├── README.md
+├── run.bat
+└── run.sh
 ```
 
-## Demo workflow for defense
+## How to Run on Windows
 
-1. Select a movie cover.
-2. Choose a day and time.
-3. Select one or more seats.
-4. Change Standard/VIP, extras, and discount and show how the total updates immediately.
-5. Enter a name and valid email and click **CONFIRM BOOKING**.
-6. Show the booking reference and console Observer notifications.
-7. Close the dialog and show that the booked seats are now disabled for that showtime.
-8. Switch the time or movie and explain that seat availability is stored per `Showtime`.
+1. Install JDK 17 or newer.
+2. Clone or download the repository.
+3. Open the project folder.
+4. Run `run.bat`.
 
-## Suggested calculations to demonstrate
+## How to Run with IntelliJ IDEA
 
-- 1 Standard / no extras / Regular = **2 200 KZT**.
-- 1 VIP / popcorn / Student = **4 050 KZT**.
-- 2 Standard / drink / Member = **4 590 KZT**.
+1. Open the `MERIDA-CINEMA` project.
+2. Make sure JDK 17 or newer is configured.
+3. Open `src/cinema/ui/CinemaApp.java`.
+4. Run the `CinemaApp` class.
 
-## Final report checklist
+## Demo Workflow
 
-The course requirements ask for a report containing an **Introduction, Body, Conclusion, Further Work, Java/Go code, application screenshots, and UML diagrams**, and require at least six integrated design patterns for the group. Add screenshots of the final running UI and export `docs/architecture.puml` as a UML image for the PDF report.
+1. Select a movie.
+2. Choose a day and showtime.
+3. Select one or more available seats.
+4. Choose a Standard or VIP ticket.
+5. Add popcorn or a soft drink.
+6. Select a pricing strategy.
+7. Enter customer details.
+8. Confirm the booking and view the booking reference.
+9. Check customer and admin notifications in the console.
 
-## Important note
+## Important Notes
 
-This is a university demonstration application. It does not process real payments or send real email. Booking state is stored in memory and resets when the application closes.
+This is an educational demonstration project.
+
+- No real payments are processed.
+- No real emails are sent.
+- Booking data is stored in memory and resets when the application closes.
+
+## Team
+
+- **Mariyam** — Factory and Builder.
+- **Dayana** — Strategy and Observer.
+- **Mehrinsa** — Decorator and Facade.
